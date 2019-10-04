@@ -1,9 +1,4 @@
 # Build a Docker image 
-- task: Docker@2
-  inputs:
-    containerRegistry: 'DockerHubConnection'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
