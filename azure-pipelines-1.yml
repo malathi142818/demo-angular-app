@@ -1,6 +1,32 @@
+# Build a Docker image 
 - task: Docker@2
   inputs:
     containerRegistry: 'DockerHubConnection'
-    repository: 'mydocker_repo123'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+  - task: Docker@2
+    inputs:
+      containerRegistry: 'DockerHubConnection'
+      repository: 'mydocker_repo123'
+      command: 'buildAndPush'
+      Dockerfile: '**/Dockerfile'
